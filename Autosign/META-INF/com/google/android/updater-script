@@ -1,0 +1,14 @@
+ui_print("install kernel");
+ui_print("Written by: @caplio");
+
+show_progress(0.500000, 0);
+
+ui_print("flashing kernel image...");
+assert(package_extract_file("zImage", "/tmp/zImage"),
+       write_raw_image("/tmp/zImage", "/dev/block/mmcblk0p5"),
+       delete("/tmp/zImage"));
+show_progress(0.100000, 0);
+
+ui_print("flash complete!");
+set_progress(1.000000);
+

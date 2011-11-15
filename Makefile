@@ -189,7 +189,8 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ \
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
 export KBUILD_BUILDHOST := $(SUBARCH)
 ARCH		?= arm
-CROSS_COMPILE	?= /opt/toolchains/arm-2009q3/bin/arm-none-linux-gnueabi-
+# CROSS_COMPILE	?= /opt/toolchains/arm-2009q3/bin/arm-none-linux-gnueabi-
+CROSS_COMPILE  ?= /home/test/CodeSourcery/Sourcery_G++_Lite/bin/arm-none-eabi-
 CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
 
 # Architecture as present in compile.h
@@ -230,8 +231,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
-HOSTCXXFLAGS = -O2
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -fomit-frame-pointer
+HOSTCXXFLAGS = -O3
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -332,12 +333,20 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-MODFLAGS	= -DMODULE
+MODFLAGS	= -DMODULE -fgcse -fsingle-precision-constant -mtune=cortex-a9 -march=armv7-a -mfpu=neon \
+							-ftree-vectorize -mvectorize-with-neon-quad
 CFLAGS_MODULE   = $(MODFLAGS)
 AFLAGS_MODULE   = $(MODFLAGS)
 LDFLAGS_MODULE  = -T $(srctree)/scripts/module-common.lds
-CFLAGS_KERNEL	=
-AFLAGS_KERNEL	=
+CFLAGS_KERNEL	= -fgcse -fsingle-precision-constant -mtune=cortex-a9 -march=armv7-a -mfpu=neon \
+							-fsingle-precision-constant -ftree-loop-distribution -fvect-cost-model \
+							-funsafe-math-optimizations -ftree-loop-im -funswitch-loops \
+							-ftree-vectorize -mvectorize-with-neon-quad
+AFLAGS_KERNEL	= -fgcse -fsingle-precision-constant -mtune=cortex-a9 -march=armv7-a -mfpu=neon \
+							-fsingle-precision-constant -ftree-loop-distribution -fvect-cost-model \
+							-funsafe-math-optimizations -ftree-loop-im -funswitch-loops \
+							-ftree-vectorize -mvectorize-with-neon-quad
+							
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
 
@@ -352,8 +361,13 @@ KBUILD_CPPFLAGS := -D__KERNEL__
 KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
-		   -Wno-format-security \
-		   -fno-delete-null-pointer-checks
+		   -Wno-format-security -mno-unaligned-access \
+		   -fno-delete-null-pointer-checks \
+		   -march=armv7-a -mtune=cortex-a9 -mfpu=neon -mfloat-abi=hard \
+		   -mvectorize-with-neon-quad -ftree-vectorize -fomit-frame-pointer \
+		   -floop-interchange -floop-strip-mine -floop-block -frename-registers \
+		   -ffast-math
+
 #change@wtl.kSingh - enabling FIPS mode - starts
 ifeq ($(USE_SEC_FIPS_MODE),true)
 KBUILD_CFLAGS += -DSEC_FIPS_ENABLED
@@ -538,7 +552,7 @@ all: vmlinux
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
 else
-KBUILD_CFLAGS	+= -O2
+KBUILD_CFLAGS	+= -O3
 endif
 
 include $(srctree)/arch/$(SRCARCH)/Makefile
@@ -587,7 +601,7 @@ CHECKFLAGS     += $(NOSTDINC_FLAGS)
 KBUILD_CFLAGS += $(call cc-option,-Wdeclaration-after-statement,)
 
 # disable pointer signed / unsigned warnings in gcc 4.0
-KBUILD_CFLAGS += $(call cc-option,-Wno-pointer-sign,)
+KBUILD_CFLAGS += $(call cc-disable-warning, pointer-sign)
 
 # disable invalid "can't wrap" optimizations for signed / pointers
 KBUILD_CFLAGS	+= $(call cc-option,-fno-strict-overflow)
