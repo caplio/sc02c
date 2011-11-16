@@ -1404,6 +1404,11 @@ static int s5pv310_target(struct cpufreq_policy *policy,
 
 	unsigned int check_gov = 0;
 
+	/* check governors to work properly while entering suspend mod by tegrak */
+	unsigned int ondemand = (strncmp(policy->governor->name, "ondemand", CPUFREQ_NAME_LEN) == 0);
+	unsigned int conservative = (strncmp(policy->governor->name, "conservative", CPUFREQ_NAME_LEN) == 0);
+	unsigned int lulzactive = (strncmp(policy->governor->name, "lulzactive", CPUFREQ_NAME_LEN) == 0);
+	
 	mutex_lock(&set_cpu_freq_change);
 
 	if ((relation & ENABLE_FURTHER_CPUFREQ) &&
@@ -1416,9 +1421,8 @@ static int s5pv310_target(struct cpufreq_policy *policy,
 				__FILE__, __LINE__);
 	}
 
-	if (!strncmp(policy->governor->name, "ondemand", CPUFREQ_NAME_LEN)
-	|| !strncmp(policy->governor->name, "conservative", CPUFREQ_NAME_LEN)) {
-		check_gov = 1;
+ 	if (ondemand || conservative || lulzactive) {
+ 		check_gov = 1;
 		if (relation & ENABLE_FURTHER_CPUFREQ)
 			s5pv310_dvs_locking = 0;
 
