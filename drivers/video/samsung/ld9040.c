@@ -54,7 +54,7 @@
 #define POWER_IS_ON(pwr)	((pwr) <= FB_BLANK_NORMAL)
 
 #define DIM_BL 20
-#define MIN_BL 30
+#define MIN_BL 10
 #define MAX_BL 255
 #define MAX_GAMMA_VALUE 24
 
