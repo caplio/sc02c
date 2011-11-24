@@ -53,8 +53,8 @@
 #define MAX_BRIGHTNESS		255
 #define POWER_IS_ON(pwr)	((pwr) <= FB_BLANK_NORMAL)
 
-#define DIM_BL 20
-#define MIN_BL 10
+#define DIM_BL 1
+#define MIN_BL 1
 #define MAX_BL 255
 #define MAX_GAMMA_VALUE 24
 
