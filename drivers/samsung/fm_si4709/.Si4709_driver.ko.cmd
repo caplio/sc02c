@@ -1,0 +1,1 @@
+cmd_drivers/samsung/fm_si4709/Si4709_driver.ko := /home/test/CodeSourcery/Sourcery_G++_Lite/bin/arm-none-eabi-ld -EL -r  -T /home/test/kernel-buid/sc02c/scripts/module-common.lds --build-id -o drivers/samsung/fm_si4709/Si4709_driver.ko drivers/samsung/fm_si4709/Si4709_driver.o drivers/samsung/fm_si4709/Si4709_driver.mod.o

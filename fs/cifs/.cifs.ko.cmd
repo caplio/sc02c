@@ -1,0 +1,1 @@
+cmd_fs/cifs/cifs.ko := /home/test/CodeSourcery/Sourcery_G++_Lite/bin/arm-none-eabi-ld -EL -r  -T /home/test/kernel-buid/sc02c/scripts/module-common.lds --build-id -o fs/cifs/cifs.ko fs/cifs/cifs.o fs/cifs/cifs.mod.o
