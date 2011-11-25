@@ -553,6 +553,14 @@ config FREQ_STEP_UP_L2_L0
 	 ("Frequecy 3-step up: Other->L2->L1->L0 for CPU Freq")
 endmenu
 
+menu "build target CyanogenMod7"
+config BUILD_TARGET_CM7
+	bool "CM7"
+	default n
+	help
+	 This option makes to select build target CyanogenMod7.
+endmenu
+
 comment "GPS"
 menuconfig GPS_GLONASS
 	bool "GPS GLONASS"
