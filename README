@@ -6,6 +6,9 @@ sakuramilkさん、ほむほむさんの変更点を盛り込んだ
 
 公開状態になっていますが、基本的に自分用のビルドと
 なります。
+
+sakuramilkさん作成のinitramfs(dual boot)にて動作確認しています。
+
 --------------------------------------------------------------------------------
 【Features （from Lulz Kernel)】
 
@@ -19,7 +22,7 @@ sakuramilkさん、ほむほむさんの変更点を盛り込んだ
 - https://market.android.com/details?id=com.tegrak.touchmove
 
 *supports BLN
-- thanks to creams and neldar.
+- thanks to creams and neldar & sakuramilk
 - get the source from creams' blog http://creamsnexus.blogspot.com/
 
 *supports clockworkmod recovery
@@ -28,15 +31,15 @@ sakuramilkさん、ほむほむさんの変更点を盛り込んだ
 *supports CIFS
 *jhash3
 
-× *supports Interactive governor Link
-× *includes Tegrak Kernel functions
+× *supports Interactive governor Link (サポートしていません)
+× *includes Tegrak Kernel functions (サポートしていません)
 
 【from sakuramilk】
 
 * TweakGS2の一部機能に対応
 　- Vibrate 
 　- DISPLAY
-　- GPU UV (動作不安定)
+　- GPU UV (動作不安定？)
 
 【etc】
 
