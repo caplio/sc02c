@@ -1,0 +1,18 @@
+--- kernel/sched.c
++++ kernel/sched.c
+@@ -78,6 +78,7 @@
+ 
+ #include "sched_cpupri.h"
+ #include "workqueue_sched.h"
++#include "sched_autogroup.h"
+ 
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/sched.h>
+@@ -2013,6 +2021,7 @@
+ #include "sched_idletask.c"
+ #include "sched_fair.c"
+ #include "sched_rt.c"
++#include "sched_autogroup.c"
+ #include "sched_stoptask.c"
+ #ifdef CONFIG_SCHED_DEBUG
+ # include "sched_debug.c"
