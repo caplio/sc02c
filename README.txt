@@ -9,8 +9,8 @@ sakuramilkさん、ほむほむさんの変更点を盛り込んだ
 
 sakuramilkさん作成のinitramfs(dual boot)にて動作確認しています。
 
-※build済みのinstall zip用イメージは、こちら（dualboot仕様）
-　http://dl.dropbox.com/u/3061279/sc02c-custom_kernel-1230_V13-touchkeyfix.zip
+※build済みのinstall zip用イメージはこちら（dualboot仕様）
+　http://dl.dropbox.com/u/3061279/sc02c-custom_kernel-0123_V15revertGPUUV.zip
 　
 　- 1st image place (system:mmcblk0p9  data:/xdata/data0 -> /data)
 　- 2st image place (system:mmcblk0p12 data:/xdata/data1 -> /data)
@@ -45,7 +45,6 @@ sakuramilkさん作成のinitramfs(dual boot)にて動作確認しています�
 * TweakGS2の一部機能に対応
 　- Vibrate 
 　- DISPLAY
-　- GPU UV (動作不安定？)
 
 【etc】
 
@@ -53,3 +52,8 @@ sakuramilkさん作成のinitramfs(dual boot)にて動作確認しています�
 * CPU scaling level is changed from 5 to 11
 　 (1200/1000/800/700/600/500/400/300/200/100/50MHz)
 
+* BT_HID Driver From GalaxyNote [thx HomuHomu] 
+
+※アップル - Magic Mouseは認識しない（再起動する）との情報有り
+　実績は、RII mini bluetooth keyboardを確認してます。
+　http://pub.slateblue.tk/days/day2060.html
